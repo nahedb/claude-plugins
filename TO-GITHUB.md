@@ -7,30 +7,27 @@ Follow these steps to back it with a GitHub repo.
 
 ### 1. Create the GitHub repo
 
-Go to GitHub and create a new repo: `brend/claude-plugins` (or any name you prefer).
-Make it public or private — Claude Code works with both.
+Repo already created at: https://github.com/nahedb/claude-plugins
 
-### 2. Push this directory
+### 2. Push this directory (if not already pushed)
 
 ```bash
 cd C:/code/claude-plugins
 git init
 git add .
 git commit -m "Initial commit: sdlc-skills plugin"
-git remote add origin https://github.com/brend/claude-plugins.git
+git remote add origin https://github.com/nahedb/claude-plugins.git
 git push -u origin main
 ```
 
-### 3. Update the marketplace registration
+### 3. Marketplace registration (already done)
 
-Edit `C:/Users/brend/.claude/plugins/known_marketplaces.json`.
-
-Add a `source` field to the `brend-personal` entry:
+`C:/Users/brend/.claude/plugins/known_marketplaces.json` already has:
 ```json
 "brend-personal": {
   "source": {
     "source": "github",
-    "repo": "brend/claude-plugins"
+    "repo": "nahedb/claude-plugins"
   },
   "installLocation": "C:\\code\\claude-plugins",
   "lastUpdated": "..."

@@ -2,6 +2,9 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "brend-personal",
   "description": "Personal Claude Code plugins",
+  "owner": {
+    "name": "nahedb"
+  },
   "plugins": [
     {
       "name": "sdlc-skills",
