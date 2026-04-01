@@ -7,7 +7,7 @@ description: Use when refining a larger initiative or multi-feature idea that ne
 
 ## Overview
 
-Full SDLC pipeline orchestrating `business-analyst`, `architect`, and `planner` agents in sequence. Ends with a prioritized Beads backlog and a recommendation to execute.
+Full SDLC pipeline orchestrating `business-analyst`, `architect`, and `planner` agents in sequence. Ends with a prioritized Beads backlog, mirrored GitHub issues, and a recommendation to execute.
 
 ## Flow
 
@@ -52,6 +52,8 @@ Invoke the `business-analyst` agent with the user's idea. It will:
 - Write stories with acceptance criteria
 - Return when the brief is approved by the user
 
+Explicitly instruct the agent: **For every Beads issue created, also create a matching GitHub issue in the current repo (detect with `gh repo view --json nameWithOwner -q .nameWithOwner`) and store the GitHub URL back in the Beads description as `GitHub: <url>`. Use labels matching the Beads type: `epic`, `feature`, `task`, `bug`.**
+
 ### Step 2 — architect
 
 Invoke the `architect` agent, passing the path to the approved requirements brief. It will:
@@ -68,6 +70,8 @@ Invoke the `planner` agent with the architect-approved brief. It will:
 - Set dependency links between issues
 - Order EPICs by their dependency chain (EPICs blocked by others come after their blockers)
 - Ask the user to set priority when two EPICs have no clear dependency relationship
+
+Explicitly instruct the agent: **For every Beads issue created, also create a matching GitHub issue and store the GitHub URL back in the Beads description as `GitHub: <url>`. Use labels: `epic`, `feature`, `task`.**
 
 ### Step 4 — Recommendation
 
