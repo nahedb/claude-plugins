@@ -56,15 +56,16 @@ bd ready
 # Show tasks under a specific epic
 bd list --parent <epic-id>
 
-# Close a completed task (then close its GitHub mirror)
+# Close a completed task (then close its GitHub Issue mirror)
 bd close <task-id>
-bd show <task-id>  # grab the "GitHub: <url>" from the description
+bd show <task-id>  # grab "GitHub: <url>" from description → extract issue number
 gh issue close <issue-number> --comment "Completed in Beads task <task-id>"
 
-# Close a completed epic (then close its GitHub mirror)
+# Close a completed epic (then close its GitHub Milestone mirror)
 bd close <epic-id>
-bd show <epic-id>  # grab the "GitHub: <url>" from the description
-gh issue close <issue-number> --comment "Epic completed in Beads <epic-id>"
+bd show <epic-id>  # grab "GitHub-Milestone: <number>" from description
+gh api repos/<owner>/<repo>/milestones/<milestone-number> \
+  --method PATCH -f state="closed"
 
 # Set epic priority if needed (0=highest, 4=lowest)
 bd update <epic-id> -p 0
@@ -75,8 +76,8 @@ bd update <epic-id> -p 0
 **implementer:** Provide the task ID, acceptance criteria (from `bd show <task-id>`), and relevant file paths. The implementer delegates to the appropriate domain specialist (frontend, backend-dotnet, etc.).
 
 **reviewer:** Provide the task ID and a summary of what was implemented. The reviewer will:
-- Pass → close the task with `bd close <task-id>`, then close the GitHub mirror (look up `GitHub: <url>` in `bd show <task-id>` output)
-- Fail → it creates a BUG or REFACTOR issue in Beads automatically; also create a matching GitHub issue for the bug with label `bug`, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
+- Pass → close the task with `bd close <task-id>`, then close its GitHub Issue mirror (`bd show <task-id>` → `GitHub: <url>` → `gh issue close <number>`)
+- Fail → reviewer creates a BUG or REFACTOR in Beads automatically; also create a matching GitHub Issue with label `bug` assigned to the EPIC's milestone, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
 
 ## Safety Gate
 

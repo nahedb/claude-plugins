@@ -20,6 +20,7 @@ Lightweight conversational flow for small features and bugs. Ends with Beads FEA
 3. Detect the current GitHub repo:
    ```bash
    gh repo view --json nameWithOwner -q .nameWithOwner
+   # e.g. "nahedb/BadBeats"
    ```
 4. Create Beads issues:
    ```bash
@@ -32,31 +33,44 @@ Lightweight conversational flow for small features and bugs. Ends with Beads FEA
    # Tasks under the feature (create 2–5)
    bd create "Task title" --type task --parent <feature-id> -d "acceptance criteria"
    ```
-5. For each Beads issue created, mirror it as a GitHub issue and store the link back in Beads:
+5. Mirror each Beads issue in GitHub and store the link back in Beads:
+
+   **If the parent EPIC doesn't already have a GitHub Milestone, create one:**
    ```bash
-   # Create GitHub issue
+   gh api repos/<owner>/<repo>/milestones \
+     --method POST \
+     -f title="<epic title>" \
+     -f description="Beads: <epic-id>"
+   # Returns milestone number — store it back in the Beads EPIC:
+   bd update <epic-id> -d "<original description>\n\nGitHub-Milestone: <milestone-number>"
+   ```
+
+   **For the FEATURE and each TASK, create a GitHub Issue under that milestone:**
+   ```bash
    gh issue create \
      --title "<same title as Beads issue>" \
-     --body "**Beads:** <beads-id>\n\n<description>" \
-     --label "<epic|feature|task>"
-
-   # Store GitHub URL back into Beads so execute flows can find and close it
+     --body "**Beads:** <beads-id>" \
+     --label "<feature|task>" \
+     --milestone "<milestone-number>"
+   # Store GitHub issue URL back in Beads:
    bd update <beads-id> -d "<original description>\n\nGitHub: <gh-issue-url>"
    ```
-   Repeat for every Beads issue (feature + each task).
 6. Verify tasks are ready:
    ```bash
    bd ready
    ```
 7. Invoke `executing-plans` skill to begin implementation immediately.
 
-## GitHub Labels
+## GitHub Mapping
 
-Use these labels when creating GitHub issues (create the label if it doesn't exist):
-- `epic` — for EPIC-type Beads issues
-- `feature` — for FEATURE-type Beads issues
-- `task` — for TASK-type Beads issues
-- `bug` — for BUG-type Beads issues
+| Beads type | GitHub equivalent |
+|---|---|
+| EPIC | Milestone |
+| FEATURE | Issue (assigned to milestone, label `feature`) |
+| TASK | Issue (assigned to milestone, label `task`) |
+| BUG | Issue (assigned to milestone, label `bug`) |
+
+Create labels if they don't exist: `gh label create <name>`
 
 ## What to Skip
 

@@ -52,7 +52,7 @@ Invoke the `business-analyst` agent with the user's idea. It will:
 - Write stories with acceptance criteria
 - Return when the brief is approved by the user
 
-Explicitly instruct the agent: **For every Beads issue created, also create a matching GitHub issue in the current repo (detect with `gh repo view --json nameWithOwner -q .nameWithOwner`) and store the GitHub URL back in the Beads description as `GitHub: <url>`. Use labels matching the Beads type: `epic`, `feature`, `task`, `bug`.**
+Explicitly instruct the agent: **Mirror every Beads issue in GitHub using this mapping — EPICs become GitHub Milestones, FEATUREs/TASKs/BUGs become GitHub Issues assigned to the milestone. Detect the repo with `gh repo view --json nameWithOwner -q .nameWithOwner`. Create milestones with `gh api repos/<owner>/<repo>/milestones --method POST -f title="<title>"`. Store `GitHub-Milestone: <number>` in the Beads EPIC description and `GitHub: <url>` in every FEATURE/TASK/BUG description.**
 
 ### Step 2 — architect
 
@@ -71,7 +71,7 @@ Invoke the `planner` agent with the architect-approved brief. It will:
 - Order EPICs by their dependency chain (EPICs blocked by others come after their blockers)
 - Ask the user to set priority when two EPICs have no clear dependency relationship
 
-Explicitly instruct the agent: **For every Beads issue created, also create a matching GitHub issue and store the GitHub URL back in the Beads description as `GitHub: <url>`. Use labels: `epic`, `feature`, `task`.**
+Explicitly instruct the agent: **Mirror every Beads issue in GitHub — EPICs become GitHub Milestones (`gh api .../milestones --method POST`), FEATUREs/TASKs become GitHub Issues assigned to the parent EPIC's milestone. Store `GitHub-Milestone: <number>` in EPIC descriptions and `GitHub: <url>` in FEATURE/TASK descriptions.**
 
 ### Step 4 — Recommendation
 

@@ -39,9 +39,9 @@ Each parallel slot must:
 - Only work on tasks that belong to its assigned epic
 - List its epic's tasks before picking any: `bd list --parent <epic-id>` then check which are in `bd ready`
 - Invoke `implementer` → `reviewer` for each task
-- On reviewer pass: close task with `bd close <task-id>`, then close its GitHub mirror (`bd show <task-id>` → look up `GitHub: <url>` → `gh issue close <number>`)
-- On reviewer fail: reviewer creates BUG/REFACTOR in Beads automatically; also create a matching GitHub issue with label `bug`, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
-- Close the epic with `bd close <epic-id>` when all tasks are done, then close its GitHub mirror the same way
+- On reviewer pass: close task with `bd close <task-id>`, then close its GitHub Issue mirror (`bd show <task-id>` → `GitHub: <url>` → `gh issue close <number>`)
+- On reviewer fail: reviewer creates BUG/REFACTOR in Beads automatically; also create a matching GitHub Issue with label `bug` assigned to the EPIC's milestone, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
+- Close the epic with `bd close <epic-id>` when all tasks are done, then close its GitHub Milestone (`bd show <epic-id>` → `GitHub-Milestone: <number>` → `gh api .../milestones/<number> --method PATCH -f state="closed"`)
 
 **REQUIRED SUB-SKILL:** Use `superpowers:dispatching-parallel-agents` to dispatch the agent slots.
 
