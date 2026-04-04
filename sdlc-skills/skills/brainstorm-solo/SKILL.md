@@ -59,7 +59,7 @@ Lightweight conversational flow for small features and bugs. Ends with Beads FEA
    ```bash
    bd ready
    ```
-7. Invoke `executing-plans` skill to begin implementation immediately.
+7. Invoke `sdlc-skills:execute-epic` to begin implementation immediately.
 
 ## GitHub Mapping
 

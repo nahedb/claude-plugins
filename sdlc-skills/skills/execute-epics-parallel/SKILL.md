@@ -43,7 +43,7 @@ Each parallel slot must:
 - On reviewer fail: reviewer creates BUG/REFACTOR in Beads automatically; also create a matching GitHub Issue with label `bug` assigned to the EPIC's milestone, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
 - Close the epic with `bd close <epic-id>` when all tasks are done, then close its GitHub Milestone (`bd show <epic-id>` → `GitHub-Milestone: <number>` → `gh api .../milestones/<number> --method PATCH -f state="closed"`)
 
-**REQUIRED SUB-SKILL:** Use `superpowers:dispatching-parallel-agents` to dispatch the agent slots.
+**REQUIRED SUB-SKILL:** Use `hyperpowers:dispatching-parallel-agents` to dispatch the agent slots.
 
 ## Safety Gates
 
