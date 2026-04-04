@@ -73,9 +73,9 @@ bd update <epic-id> -p 0
 
 ## Agent Instructions
 
-**implementer:** Provide the task ID, acceptance criteria (from `bd show <task-id>`), and relevant file paths. The implementer delegates to the appropriate domain specialist (frontend, backend-dotnet, etc.).
+**implementer:** Provide the task ID, acceptance criteria (from `bd show <task-id>`), and relevant file paths. The implementer delegates to the appropriate domain specialist (frontend, backend-dotnet, etc.) and must follow `hyperpowers:test-driven-development`.
 
-**reviewer:** Provide the task ID and a summary of what was implemented. The reviewer will:
+**reviewer:** Provide the task ID and a summary of what was implemented. Before the reviewer is invoked, run `hyperpowers:verification-before-completion` to confirm the implementation meets acceptance criteria. The reviewer will:
 - Pass → close the task with `bd close <task-id>`, then close its GitHub Issue mirror (`bd show <task-id>` → `GitHub: <url>` → `gh issue close <number>`)
 - Fail → reviewer creates a BUG or REFACTOR in Beads automatically; also create a matching GitHub Issue with label `bug` assigned to the EPIC's milestone, storing the GitHub URL back in the Beads issue; loop back to `bd ready`
 

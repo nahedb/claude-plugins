@@ -81,5 +81,5 @@ After the planner completes, inspect the EPIC graph:
 bd graph
 ```
 
-- If 2+ EPICs have no mutual dependencies → tell the user: "Multiple independent epics were created. Consider running `/execute-epics-parallel` to work on them simultaneously."
+- If 2+ EPICs have no mutual dependencies → tell the user: "Multiple independent epics were created. Consider running `/execute-epics-parallel` to work on them simultaneously (uses `hyperpowers:dispatching-parallel-agents` internally)."
 - If only 1 EPIC or all EPICs are sequential → tell the user: "Run `/execute-epic` to begin implementation."
